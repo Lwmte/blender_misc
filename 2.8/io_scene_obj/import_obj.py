@@ -958,10 +958,13 @@ def load(context,
             data.append(tuple(vec[:vec_len]))
 
         if tag == b'v':
-            if len(vec) > vec_len:
+            if len(vec) > vec_len and len(vec) >= 6:
                 vert_vector = mathutils.Vector((vec[0], vec[1], vec[2]))
                 verts_with_vcol.append(vert_vector)
-                verts_vcols.append(tuple([vec[3], vec[4], vec[5], vec[6]]))
+                if len(vec) == 6:
+                    verts_vcols.append(tuple([vec[3], vec[4], vec[5], 1.0]))
+                elif len(vec) > 6:
+                    verts_vcols.append(tuple([vec[3], vec[4], vec[5], vec[6]]))
             else:
                 vert_vector = mathutils.Vector((vec[0], vec[1], vec[2]))
                 verts_with_vcol.append(vert_vector)
